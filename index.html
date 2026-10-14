@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shiv Singh Baghel — Backend-focused full-stack developer</title>
+  <meta name="description" content="Portfolio of Shiv Singh Baghel, a B.Tech IT student in Bhopal building backend systems and developer tools: ShipFlow (self-hosted CI/CD), Repolet (npm CLI) and more.">
+  <meta name="theme-color" content="#f6f4ee" id="theme-color">
+  <meta name="color-scheme" content="light dark">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Shiv Singh Baghel — Backend-focused full-stack developer">
+  <meta property="og:description" content="Building useful software, reliable backend systems, and developer tools.">
+  <meta property="og:image" content="assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Once your domain is known, add: <link rel="canonical" href="https://YOUR-DOMAIN/"> and make og:image an absolute URL. -->
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c2410c'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' text-anchor='middle' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+
+  <script>
+    /* Set the theme before first paint so there is no flash. */
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") {
+        t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+      document.documentElement.classList.add("js");
+      var m = document.getElementById("theme-color");
+      if (m) m.setAttribute("content", t === "dark" ? "#11110f" : "#f6f4ee");
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="#top" aria-label="Back to top"></a>
+      <nav class="site-nav" id="site-nav" aria-label="Primary"></nav>
+      <div class="header-actions">
+        <a class="btn btn-small btn-ghost" data-resume hidden>Resume</a>
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="icon-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/><g class="icon-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="hero" aria-labelledby="hero-title"></section>
+    <section class="section" id="about" aria-labelledby="about-title"></section>
+    <section class="section" id="projects" aria-labelledby="projects-title"></section>
+    <section class="section" id="skills" aria-labelledby="skills-title"></section>
+    <section class="section" id="journey" aria-labelledby="journey-title"></section>
+    <section class="section" id="contact" aria-labelledby="contact-title"></section>
+    <noscript><p class="wrap noscript">This portfolio renders its content with JavaScript. You can still find my work on <a href="https://github.com/shivsingh78">GitHub</a>.</p></noscript>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p id="footer-text"></p>
+      <a href="#top" class="to-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <dialog class="modal" id="project-dialog" aria-labelledby="dialog-title"></dialog>
+
+  <script src="js/data/profile.js"></script>
+  <script src="js/data/navigation.js"></script>
+  <script src="js/data/projects.js"></script>
+  <script src="js/data/skills.js"></script>
+  <script src="js/data/experience.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
