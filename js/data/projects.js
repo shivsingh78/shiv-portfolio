@@ -129,35 +129,11 @@ window.PORTFOLIO.projects = [
   },
 
   {
-    id: "boxify",
-    slug: "boxify",
-    image: { src: "assets/projects/boxify.webp", alt: "Boxify project banner." },
-    name: "Boxify",
-    category: "Current project",
-    status: "Current project",
-    featured: true,
-    placeholder: true,
-    shortDescription: "Current project. Description, stack and screenshots to be added.",
-  },
-
-  {
-    id: "niyamsetu",
-    slug: "niyamsetu",
-    image: { src: "assets/projects/niyamsetu.webp", alt: "NiyamSetu project banner." },
-    name: "NiyamSetu",
-    category: "Current project",
-    status: "Current project",
-    featured: true,
-    placeholder: true,
-    shortDescription: "Current project. Description, stack and screenshots to be added.",
-  },
-
-  {
     id: "foodify",
     slug: "foodify",
     name: "Foodify",
     category: "Full-stack food delivery platform",
-    featured: false,
+    featured: true,
     shortDescription:
       "A full-stack food delivery platform that connects customers, restaurant owners, and delivery partners through one ordering and delivery workflow, with REST APIs, real-time updates over Socket.IO, location-aware delivery dispatch, and role-based access control.",
     fullDescription:
@@ -226,7 +202,7 @@ window.PORTFOLIO.projects = [
     image: { src: "assets/projects/ecommerce-store.webp", alt: "E-Store screens: home hero, all collections with filters, about page, and contact page." },
     name: "E-commerce store",
     category: "Full-stack MERN store",
-    featured: false,
+    featured: true,
     shortDescription:
       "A MERN-stack clothing store with a customer storefront, a separate admin dashboard, and a REST API. It has product filtering and search, a per-user cart, cash-on-delivery and Razorpay checkout, Google sign-in, and a voice-controlled search assistant.",
     fullDescription:
@@ -287,5 +263,29 @@ window.PORTFOLIO.projects = [
     ],
     githubUrl: "https://github.com/shivsingh78/E-commerce_store",
     liveUrl: "https://e-store-frontend-4cvi.onrender.com",
+  },
+
+  {
+    id: "boxify",
+    slug: "boxify",
+    image: { src: "assets/projects/boxify.webp", alt: "Boxify project banner." },
+    name: "Boxify",
+    category: "Current project",
+    status: "Current project",
+    featured: false,
+    placeholder: true,
+    shortDescription: "Current project. Description, stack and screenshots to be added.",
+  },
+
+  {
+    id: "niyamsetu",
+    slug: "niyamsetu",
+    image: { src: "assets/projects/niyamsetu.webp", alt: "NiyamSetu project banner." },
+    name: "NiyamSetu",
+    category: "Current project",
+    status: "Current project",
+    featured: false,
+    placeholder: true,
+    shortDescription: "Current project. Description, stack and screenshots to be added.",
   },
 ];
