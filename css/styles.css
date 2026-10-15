@@ -262,9 +262,13 @@ ul, ol { margin: 0; padding: 0; }
   .header-inner { gap: 12px; }
   .header-actions { margin-left: auto; }
   .hero-inner { grid-template-columns: 1fr; }
-  .hero-photo { justify-self: start; width: min(100%, 320px); }
+  .hero-photo { justify-self: center; width: min(100%, 380px); }
   .about-grid { grid-template-columns: 1fr; }
-  .about-photo { max-width: 320px; }
+  .prose p, .hero-intro, .card-desc, .contact-lead, .timeline-item p:last-child, .dlg-section p, .bullets li { text-align: justify; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+  .social { justify-content: center; }
+  .social a { font-weight: 700; color: var(--accent); padding: 10px 6px; display: inline-block; }
+  .more-link { text-align: center; }
+  .about-photo { width: 100%; max-width: 380px; margin-inline: auto; }
   .card-grid, .card-grid-small { grid-template-columns: 1fr; }
   .timeline-item { grid-template-columns: 1fr; gap: 4px; }
   .timeline-period { margin: 0; }
