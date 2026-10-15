@@ -231,7 +231,7 @@
     return !!(p.fullDescription || p.problem || p.solution || (p.features && p.features.length) ||
       p.architecture || (p.engineeringHighlights && p.engineeringHighlights.length) ||
       (p.tradeoffs && p.tradeoffs.length) || (p.challenges && p.challenges.length) ||
-      (p.lessonsLearned && p.lessonsLearned.length));
+      (p.lessonsLearned && p.lessonsLearned.length) || (p.futureImprovements && p.futureImprovements.length));
   }
 
   function projectCard(p, index, big) {
@@ -245,7 +245,8 @@
     }
     linkRow(p).forEach(function (a) { actions.appendChild(a); });
 
-    return h("article", { class: "card reveal" + (big ? " card-big" : "") + (p.placeholder ? " is-placeholder" : ""), id: "project-" + p.slug },
+    var clickable = hasDetails(p);
+    return h("article", { class: "card reveal" + (big ? " card-big" : "") + (p.placeholder ? " is-placeholder" : "") + (clickable ? " is-clickable" : ""), id: "project-" + p.slug, "data-card": clickable ? p.slug : null },
       projectVisual(p),
       h("div", { class: "card-body" },
         h("p", { class: "card-meta", text: meta }),
@@ -330,6 +331,7 @@
       listBlock("Trade-offs & limitations", p.tradeoffs),
       listBlock("Challenges", p.challenges),
       listBlock("Lessons learned", p.lessonsLearned),
+      listBlock("Future improvements", p.futureImprovements),
       (p.image && p.image.src) ? h("section", { class: "dlg-section" }, h("h3", { text: "Screenshot" }), h("img", { class: "dlg-img", src: p.image.src, alt: p.image.alt || p.name + " screenshot", loading: "lazy" })) : null,
       links.length ? h("div", { class: "dlg-links" }, links) : null
     );
@@ -363,6 +365,14 @@
       var opener = e.target.closest && e.target.closest("[data-open]");
       if (opener) { openProject(opener.getAttribute("data-open"), opener); return; }
       if (e.target.closest && e.target.closest("[data-close]")) { closeProject(); return; }
+      // Whole-card click: ignore anything interactive (links, buttons, ...) and text selection.
+      var card = e.target.closest && e.target.closest("[data-card]");
+      if (card && !e.target.closest("a, button, input, select, textarea, summary, label")) {
+        var sel = window.getSelection && window.getSelection();
+        if (sel && !sel.isCollapsed && card.contains(sel.anchorNode)) return;
+        openProject(card.getAttribute("data-card"), $("[data-open]", card));
+        return;
+      }
       if (e.target === dialog) closeProject(); // click on the backdrop
     });
     dialog.addEventListener("close", function () {
