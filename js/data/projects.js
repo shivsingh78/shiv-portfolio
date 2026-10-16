@@ -84,6 +84,7 @@ window.PORTFOLIO.projects = [
       "One shared API token for all operators, with no per-user accounts. It is meant as a single-owner or trusted-team demo, not a public multi-tenant service.",
     ],
     githubUrl: "https://github.com/shivsingh78/shipflow",
+    npmUrl: "https://www.npmjs.com/package/shipflow-cli",
   },
 
   {
@@ -263,6 +264,99 @@ window.PORTFOLIO.projects = [
     ],
     githubUrl: "https://github.com/shivsingh78/E-commerce_store",
     liveUrl: "https://e-store-frontend-4cvi.onrender.com",
+  },
+
+  {
+    id: "repopilot",
+    slug: "repopilot",
+    image: { src: "assets/projects/repopilot.webp", alt: "RepoPilot: a GitHub URL goes through AI analysis and patch generation, then is verified in a Docker sandbox before an optional pull request." },
+    name: "RepoPilot",
+    category: "AI developer tool",
+    status: "In development",
+    featured: false,
+    shortDescription:
+      "Takes a GitHub URL, finds issues, proposes patches, and verifies them in a Docker sandbox before optionally opening a pull request. Every claim of \"fixed\" is backed by an observed sandbox run, never by the model's say-so.",
+    fullDescription:
+      "RepoPilot analyses a Node.js or TypeScript repository, ranks the issues it finds, generates a patch and a test for each, and runs the repository's tests in an isolated container before and after the patch. The result shows what the model believes next to what the sandbox actually observed, and a pull request can be opened for a human to review. It never merges.",
+    problem:
+      "Finding real defects, writing a fix, and proving it works takes hours of manual cloning, reading and guessing at test setup. Tools that only ask a model what is wrong cannot tell you whether the fix actually works.",
+    solution:
+      "A staged pipeline: download a snapshot, build a manifest, select relevant context within a token budget, analyse with a schema-validated model response, generate and validate patches, then run a baseline and a patched test run in a Docker sandbox. Outcomes are classified as improved, unchanged, regressed or inconclusive from the sandbox results alone.",
+    features: [
+      "Submit a GitHub URL and follow stage progress in a web UI or through a REST API",
+      "Ranked issues with file, line range, severity, confidence and an evidence snippet",
+      "One patch per issue as a unified diff, plus a generated test",
+      "Baseline run and patched run of the repository's tests inside a Docker sandbox",
+      "Per-patch outcome: improved, unchanged, regressed or inconclusive",
+      "Optional pull request whose description is built from the observed results",
+    ],
+    architecture:
+      "A modular monolith in a pnpm workspace: a Next.js web app, an Express API, and a BullMQ worker that owns Docker access, backed by PostgreSQL and Redis. Shared packages cover validation, GitHub access, analysis and AI prompts. Each pipeline stage is idempotent and resumable, with state kept in PostgreSQL.",
+    pipeline: ["Ingest", "Manifest", "Analyze", "Patch", "Verify", "PR"],
+    technologies: [
+      "TypeScript",
+      "Next.js",
+      "Express",
+      "BullMQ",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "Zod",
+      "Anthropic API",
+      "pnpm workspaces",
+    ],
+    engineeringHighlights: [
+      "Model output is untrusted data. Every response is parsed against a Zod schema and rejected if it does not match.",
+      "The AI schemas have no field for test results, so the model cannot fabricate verification. Verification records come only from the sandbox.",
+      "Repository code never runs on the host. It runs only in a container with dropped capabilities, a read-only filesystem, resource limits and no secrets, and with no network during the test phase.",
+      "Patches are checked deterministically before any run. Changes to CI config, lockfiles, Dockerfiles, env files and package.json scripts are rejected.",
+      "Tarball extraction rejects path traversal, symlinks and oversized archives, and only github.com repository URLs are accepted.",
+      "api and worker are separate processes, so the internet-facing API never holds the Docker socket.",
+    ],
+    tradeoffs: [
+      "The worker needs Docker access, which makes its host the most privileged machine. A container escape is the main residual risk.",
+      "The first version targets JavaScript and TypeScript projects that have a test script, and analyses the root package only.",
+      "It is single-tenant with a shared API key, not a multi-user service.",
+      "A plausible but wrong patch is still possible. Verification and human review exist to catch that.",
+    ],
+    lessonsLearned: [
+      "Separating what a model infers from what a sandbox observes is what makes a claim like \"verified\" trustworthy.",
+      "Treating repository contents and model output as hostile input shapes the whole architecture, from schemas to container limits.",
+    ],
+    githubUrl: "https://github.com/shivsingh78/RepoPilot",
+  },
+
+  {
+    id: "tool-call-firewall",
+    slug: "tool-call-firewall",
+    image: { src: "assets/projects/tool-call-firewall.webp", alt: "LLM Agent Tool-Call Firewall: an agent's tool calls pass through a policy firewall, defending against exfiltration, command injection, indirect prompt injection, tool flooding and privilege escalation." },
+    name: "LLM Agent Tool-Call Firewall",
+    category: "Security",
+    status: "Challenge project",
+    featured: false,
+    shortDescription:
+      "A policy layer that intercepts every tool call an LLM agent makes. It enforces role-based budgets, validates parameters, asks the user to confirm destructive actions, and sanitizes tool output against indirect prompt injection.",
+    fullDescription:
+      "The firewall sits between an agent and its tools and checks every call before it runs and every result before the agent sees it. It is tested with a deterministic replay corpus, so no real LLM is needed to prove the rules hold.",
+    problem:
+      "An agent that can call tools can be tricked into misusing them: leaking data through a tool, running injected commands, flooding a tool with calls, acting beyond its role, or following instructions hidden in a tool's output.",
+    solution:
+      "Every tool call goes through a policy layer first. Calls are checked against the caller's role and budget, their parameters are validated, destructive actions wait for explicit user confirmation, and tool output is sanitized before it is returned to the agent.",
+    features: [
+      "Role-based budgets for tool calls",
+      "Parameter validation before a tool runs",
+      "User confirmation required for destructive actions",
+      "Sanitization of tool outputs against indirect prompt injection",
+      "Deterministic replay corpus for testing, with no real LLM needed",
+    ],
+    architecture:
+      "Agent → policy firewall (role and budget check, parameter validation, confirmation gate) → tool → output sanitizer → agent. Because the firewall owns the decision, the agent itself does not have to be trusted.",
+    technologies: ["Python", "LLM tool calling", "Role-based access control", "Replay-based testing"],
+    engineeringHighlights: [
+      "Defends against five attack classes: exfiltration via tool, command injection, indirect prompt injection, tool flooding, and privilege escalation.",
+      "Rules are enforced outside the model, so they hold no matter what the model outputs.",
+      "Behaviour is checked with a replay corpus, which makes the tests repeatable.",
+    ],
   },
 
   {
